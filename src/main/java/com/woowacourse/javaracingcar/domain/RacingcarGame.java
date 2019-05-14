@@ -30,9 +30,7 @@ public class RacingcarGame {
         List<GameRound> rounds = new ArrayList<>();
 
         for (int i = 0; i < tries; i++) {
-            cars.retrieveAllCars().forEach(c -> {
-                cars.moveCar(c.getName(), rule.getPositionToMove());
-            });
+            cars.moveCars(rule::getPositionToMove);
             rounds.add(new GameRound(cars));
         }
 

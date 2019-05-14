@@ -1,9 +1,7 @@
 package com.woowacourse.javaracingcar.domain;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public class PlayingCars {
@@ -22,13 +20,12 @@ public class PlayingCars {
     }
 
     /**
-     * @param carName       자동차 이름
      * @param positionDelta 움직일 거리
      */
-    public void moveCar(final String carName, final int positionDelta) {
-        Optional<Car> maybeCar = Optional.ofNullable(cars.get(carName));
-        maybeCar.orElseThrow(() -> new IllegalArgumentException("Car was not found with name: " + carName));
-        maybeCar.ifPresent(c -> c.move(positionDelta));
+    public List<CarDto> moveCars(Supplier<Integer> positionSupplier) {
+        List<CarDto> movedCars = new ArrayList<>();
+        carList.forEach(c -> movedCars.add(c.move(positionSupplier.get())));
+        return movedCars;
     }
 
     public List<CarDto> retrieveAllCars() {
